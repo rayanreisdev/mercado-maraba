@@ -1,422 +1,212 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mercado</title>
-<style>
-  /* Reset básico */
-  * {
-    box-sizing: border-box;
-  }
-  body {
-    font-family: Arial, sans-serif;
-    background: #f9f9f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-  }
-  .container {
-    background: white;
-    width: 400px;
-    border-radius: 16px;
-    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
-    overflow: hidden;
-    margin: 20px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <title>Comercial Maraba</title>
+  <style>
 
-  /* Header */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
-    background: white;
-  }
-  header h1 {
-    margin: 0;
-    font-weight: 700;
-    font-size: 24px;
-  }
-  nav {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-  }
-  nav a {
-    text-decoration: none;
-    color: black;
-    font-weight: 600;
-    font-size: 14px;
-  }
-  nav a:hover {
-    text-decoration: underline;
-  }
-  .search-icon {
-    width: 18px;
-    height: 18px;
-    stroke: black;
-    cursor: pointer;
-  }
-
-  /* Banner de imagem */
-  .banner img {
-    width: 100%;
-    display: block;
-    height: 140px;
-    object-fit: cover;
-  }
-
-  /* Conteúdo principal */
-  .main-content {
-    padding: 24px;
-    text-align: center;
-  }
-  .main-content h2 {
-    font-size: 36px;
-    font-weight: 700;
-    margin: 0 0 8px 0;
-  }
-  .main-content p {
-    margin: 0 0 20px 0;
-    font-size: 16px;
-  }
-  .btn-order {
-    background-color: #2e7d32;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 14px 32px;
-    font-weight: 700;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  .btn-order:hover {
-    background-color: #276728;
-  }
-
-  /* Featured Items */
-  .featured {
-    padding: 0 24px 24px 24px;
-  }
-  .featured h3 {
-    font-weight: 700;
-    font-size: 20px;
-    margin-bottom: 16px;
-  }
-  .produtos {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .produto {
-    background: #fafafa;
-    border-radius: 16px;
-    padding: 12px;
-    text-align: left;
-    box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
-  }
-  .produto img {
-    width: 100%;
-    border-radius: 12px;
-    object-fit: contain;
-    max-height: 100px;
-    margin-bottom: 12px;
-  }
-  .produto h4 {
-    margin: 0 0 6px 0;
-    font-weight: 700;
-    font-size: 18px;
-  }
-  .produto p {
-    margin: 0 0 10px 0;
-    font-size: 16px;
-  }
-
-  /* Botões de + e - */
-  .botoes {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    align-items: center;
-  }
-  .botoes button {
-    background-color: #2e7d32;
-    border: none;
-    color: white;
-    font-size: 20px;
-    font-weight: 700;
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .botoes span.quantidade {
-    font-size: 18px;
-    min-width: 24px;
-    text-align: center;
-  }
-
-  /* Carrinho fixo no canto inferior direito */
-  #carrinho-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background-color: #2e7d32;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    color: white;
-    font-weight: 700;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgb(0 0 0 / 0.2);
-    z-index: 100;
-  }
-
-  /* Modal do carrinho */
-  #carrinho-modal {
-    position: fixed;
-    bottom: 90px;
-    right: 24px;
-    width: 320px;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 20px rgb(0 0 0 / 0.2);
-    padding: 20px;
-    display: none;
-    z-index: 101;
-  }
-  #carrinho-modal h2 {
-    margin: 0 0 12px 0;
-    font-weight: 700;
-  }
-  #lista-carrinho {
-    list-style: none;
-    padding-left: 0;
-    max-height: 200px;
-    overflow-y: auto;
-    margin: 0 0 12px 0;
-  }
-  #lista-carrinho li {
-    margin-bottom: 8px;
-    font-size: 16px;
-  }
-  #finalizar, #fechar {
-    width: 100%;
-    border-radius: 8px;
-    padding: 12px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  #finalizar {
-    background-color: #2e7d32;
-    color: white;
-    font-weight: 700;
-  }
-  #finalizar:disabled {
-    background-color: #9ccc9c;
-    cursor: not-allowed;
-  }
-  #fechar {
-    background-color: #ccc;
-    color: #333;
-    margin-top: 10px;
-  }
-</style>
+  </style>
 </head>
+
 <body>
 
-<div class="container">
-  <header>
-    <h1>Mercado</h1>
-    <nav>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-      <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" 
-        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="11" cy="11" r="7"></circle>
-        <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
-      </svg>
-    </nav>
-  </header>
+  <div class="container">
+    <header>
+      <h1>Comercial Maraba</h1>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#" onclick="abrirWhatsApp('5594984046320')">Contato</a>
+        <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+        </svg>
+      </nav>
+    </header>
 
-  <div class="banner">
-    <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80" alt="Vegetais frescos" />
-  </div>
-
-  <div class="main-content">
-    <h2>Fresh Products</h2>
-    <p>Open daily - 4:00 - 13:00</p>
-    <button class="btn-order">ORDER NOW</button>
-  </div>
-
-  <section class="featured">
-    <h3>Featured Items</h3>
-    <div class="produtos">
-      <div class="produto" data-nome="Apples">
-        <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80" alt="Apples" />
-        <h4>Apples</h4>
-        <p>$1.49</p>
-        <div class="botoes">
-          <button class="menos">-</button>
-          <span class="quantidade">0</span>
-          <button class="mais">+</button>
-        </div>
-      </div>
-
-      <div class="produto" data-nome="Bananas">
-        <img src="https://images.unsplash.com/photo-1574226516831-e1dff420e43e?auto=format&fit=crop&w=200&q=80" alt="Bananas" />
-        <h4>Bananas</h4>
-        <p>$0.89</p>
-        <div class="botoes">
-          <button class="menos">-</button>
-          <span class="quantidade">0</span>
-          <button class="mais">+</button>
-        </div>
-      </div>
-
-      <div class="produto" data-nome="Large Eggs">
-        <img src="https://images.unsplash.com/photo-1582582494706-3694ec4e2e5a?auto=format&fit=crop&w=200&q=80" alt="Large Eggs" />
-        <h4>Large Eggs</h4>
-        <p>$2.90</p>
-        <div class="botoes">
-          <button class="menos">-</button>
-          <span class="quantidade">0</span>
-          <button class="mais">+</button>
-        </div>
-      </div>
-
-      <div class="produto" data-nome="Milk">
-        <img src="https://images.unsplash.com/photo-1585238342028-35587a5a1b6f?auto=format&fit=crop&w=200&q=80" alt="Milk" />
-        <h4>Milk</h4>
-        <p>$2.29</p>
-        <div class="botoes">
-          <button class="menos">-</button>
-          <span class="quantidade">0</span>
-          <button class="mais">+</button>
-        </div>
-      </div>
+    <div class="banner">
+      <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80"
+        alt="Vegetais frescos" />
     </div>
-  </section>
-</div>
 
-<!-- Botão e modal do carrinho -->
-<div id="carrinho-btn"><span id="contador">0</span></div>
-<div id="carrinho-modal">
-  <h2>Seu carrinho</h2>
-  <ul id="lista-carrinho"></ul>
-  <button id="finalizar" disabled>Finalizar pedido</button>
-  <button id="fechar">Fechar</button>
-</div>
+    <div class="main-content">
+      <h2>Fresh Products</h2>
+      <p>Fucionamento das - 8:00 - 13:00 da 14:00 as 18:00</p>
+      <button class="btn-order">ORDER NOW</button>
+    </div>
 
-<script>
-  // Aqui você pode colar o seu código JS do carrinho exatamente igual do que você mandou,
-  // só precisa ajustar para funcionar com essa estrutura nova.
+    <section class="featured">
+      <h3>Ortifruts</h3>
+      <div class="produtos">
+        <div class="produto" data-nome="Apples">
+          <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
+            alt="Apples" />
+          <h4>Maçã</h4>
+          <p>R$2,50</p>
+          <div class="botoes">
+            <button class="menos">-</button>
+            <span class="quantidade">0</span>
+            <button class="mais">+</button>
+          </div>
+        </div>
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const produtos = document.querySelectorAll('.produto');
-    const carrinhoBtn = document.getElementById('carrinho-btn');
-    const contador = document.getElementById('contador');
-    const carrinhoModal = document.getElementById('carrinho-modal');
-    const listaCarrinho = document.getElementById('lista-carrinho');
-    const finalizarBtn = document.getElementById('finalizar');
-    const fecharBtn = document.getElementById('fechar');
+        <div class="produto" data-nome="Bananas">
+          <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
+            alt="Bananas" />
+          <h4>Bananas</h4>
+          <p>R$2,50</p>
+          <div class="botoes">
+            <button class="menos">-</button>
+            <span class="quantidade">0</span>
+            <button class="mais">+</button>
+          </div>
+        </div>
 
-    const carrinho = {};
+        <div class="produto" data-nome="Large Eggs">
+          <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
+            alt="Large Eggs" />
+          <h4>melancia</h4>
+          <p>R$2,50</p>
+          <div class="botoes">
+            <button class="menos">-</button>
+            <span class="quantidade">0</span>
+            <button class="mais">+</button>
+          </div>
+        </div>
 
-    function atualizarContador() {
-      let total = 0;
-      for (let qtd of Object.values(carrinho)) {
-        total += qtd;
+        <div class="produto" data-nome="Milk">
+          <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
+            alt="Milk" />
+          <h4>Leite</h4>
+          <p>R$2,50</p>
+          <div class="botoes">
+            <button class="menos">-</button>
+            <span class="quantidade">0</span>
+            <button class="mais">+</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Botão e modal do carrinho -->
+  <div id="carrinho-btn"><span id="contador">0</span></div>
+  <div id="carrinho-modal">
+    <h2>Seu carrinho</h2>
+    <ul id="lista-carrinho"></ul>
+    <button id="finalizar" disabled>Finalizar pedido</button>
+    <button id="fechar">Fechar</button>
+  </div>
+
+  <script>
+    // Aqui você pode colar o seu código JS do carrinho exatamente igual do que você mandou,
+    // só precisa ajustar para funcionar com essa estrutura nova.
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const produtos = document.querySelectorAll('.produto');
+      const carrinhoBtn = document.getElementById('carrinho-btn');
+      const contador = document.getElementById('contador');
+      const carrinhoModal = document.getElementById('carrinho-modal');
+      const listaCarrinho = document.getElementById('lista-carrinho');
+      const finalizarBtn = document.getElementById('finalizar');
+      const fecharBtn = document.getElementById('fechar');
+
+      const carrinho = {};
+
+      function atualizarContador() {
+        let total = 0;
+        for (let qtd of Object.values(carrinho)) {
+          total += qtd;
+        }
+        contador.textContent = total;
       }
-      contador.textContent = total;
-    }
 
-    function atualizarListaCarrinho() {
-      listaCarrinho.innerHTML = '';
-      let temItem = false;
-      for (let [nome, qtd] of Object.entries(carrinho)) {
-        if (qtd > 0) {
-          const li = document.createElement('li');
-          li.textContent = qtd + ' x ' + nome;
-          listaCarrinho.appendChild(li);
-          temItem = true;
+      function atualizarListaCarrinho() {
+        listaCarrinho.innerHTML = '';
+        let temItem = false;
+        for (let [nome, qtd] of Object.entries(carrinho)) {
+          if (qtd > 0) {
+            const li = document.createElement('li');
+            li.textContent = qtd + ' x ' + nome;
+            listaCarrinho.appendChild(li);
+            temItem = true;
+          }
+        }
+        if (!temItem) {
+          listaCarrinho.innerHTML = '<li>Carrinho vazio</li>';
+          finalizarBtn.disabled = true;
+        } else {
+          finalizarBtn.disabled = false;
         }
       }
-      if (!temItem) {
-        listaCarrinho.innerHTML = '<li>Carrinho vazio</li>';
-        finalizarBtn.disabled = true;
-      } else {
-        finalizarBtn.disabled = false;
-      }
-    }
 
-    produtos.forEach(function(produto) {
-      const btnMais = produto.querySelector('.mais');
-      const btnMenos = produto.querySelector('.menos');
-      const qtdSpan = produto.querySelector('.quantidade');
-      const nome = produto.getAttribute('data-nome');
+      produtos.forEach(function (produto) {
+        const btnMais = produto.querySelector('.mais');
+        const btnMenos = produto.querySelector('.menos');
+        const qtdSpan = produto.querySelector('.quantidade');
+        const nome = produto.getAttribute('data-nome');
 
-      carrinho[nome] = 0;
+        carrinho[nome] = 0;
 
-      btnMais.addEventListener('click', function() {
-        carrinho[nome]++;
-        qtdSpan.textContent = carrinho[nome];
-        atualizarContador();
-        atualizarListaCarrinho();
-      });
-
-      btnMenos.addEventListener('click', function() {
-        if (carrinho[nome] > 0) {
-          carrinho[nome]--;
+        btnMais.addEventListener('click', function () {
+          carrinho[nome]++;
           qtdSpan.textContent = carrinho[nome];
           atualizarContador();
           atualizarListaCarrinho();
+        });
+
+        btnMenos.addEventListener('click', function () {
+          if (carrinho[nome] > 0) {
+            carrinho[nome]--;
+            qtdSpan.textContent = carrinho[nome];
+            atualizarContador();
+            atualizarListaCarrinho();
+          }
+        });
+      });
+
+      carrinhoBtn.addEventListener('click', function () {
+        if (carrinhoModal.style.display === 'block') {
+          carrinhoModal.style.display = 'none';
+        } else {
+          atualizarListaCarrinho();
+          carrinhoModal.style.display = 'block';
         }
       });
-    });
 
-    carrinhoBtn.addEventListener('click', function() {
-      if (carrinhoModal.style.display === 'block') {
+      fecharBtn.addEventListener('click', function () {
         carrinhoModal.style.display = 'none';
-      } else {
-        atualizarListaCarrinho();
-        carrinhoModal.style.display = 'block';
-      }
-    });
+      });
 
-    fecharBtn.addEventListener('click', function() {
-      carrinhoModal.style.display = 'none';
-    });
-
-    finalizarBtn.addEventListener('click', function() {
-      const itens = [];
-      for (let [nome, qtd] of Object.entries(carrinho)) {
-        if (qtd > 0) {
-          itens.push(qtd + ' ' + nome.toLowerCase());
+      finalizarBtn.addEventListener('click', function () {
+        const itens = [];
+        for (let [nome, qtd] of Object.entries(carrinho)) {
+          if (qtd > 0) {
+            itens.push(qtd + ' ' + nome.toLowerCase());
+          }
         }
-      }
-      if (itens.length === 0) {
-        alert('Seu carrinho está vazio!');
-        return;
-      }
-      const mensagem = 'Olá gostaria de fazer o seguinte pedido, ' + itens.join(', ') + '.';
-      const telefone = '94984046320'; // coloque seu telefone aqui
-      const url = 'https://wa.me/55' + telefone + '?text=' + encodeURIComponent(mensagem);
-      window.open(url, '_blank');
+        if (itens.length === 0) {
+          alert('Seu carrinho está vazio!');
+          return;
+        }
+        const mensagem = 'Olá gostaria de fazer o seguinte pedido, ' + itens.join(', ') + '.';
+        const telefone = '94984046320'; // coloque seu telefone aqui
+        const url = 'https://wa.me/55' + telefone + '?text=' + encodeURIComponent(mensagem);
+        window.open(url, '_blank');
+      });
     });
-  });
-</script>
+  </script>
 
+
+<script>
+  function abrirWhatsApp(numero) {
+      const url = `https://wa.me/${numero}`;
+      window.open(url, '_blank');
+    }
+</script>
 </body>
+
 </html>

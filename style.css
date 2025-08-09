@@ -1,0 +1,226 @@
+* {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    background: white;
+    width: 400px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+    overflow: hidden;
+    margin: 20px;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: white;
+  }
+  header h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  nav {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+  .search-icon {
+    width: 18px;
+    height: 18px;
+    stroke: black;
+    cursor: pointer;
+  }
+
+  /* Banner de imagem */
+  .banner img {
+    width: 100%;
+    display: block;
+    height: 140px;
+    object-fit: cover;
+  }
+
+  /* Conteúdo principal */
+  .main-content {
+    padding: 24px;
+    text-align: center;
+  }
+  .main-content h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+  }
+  .main-content p {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+  }
+  .btn-order {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 32px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .btn-order:hover {
+    background-color: #276728;
+  }
+
+  /* Featured Items */
+  .featured {
+    padding: 0 24px 24px 24px;
+  }
+  .featured h3 {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .produtos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .produto {
+    background: #fafafa;
+    border-radius: 16px;
+    padding: 12px;
+    text-align: left;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.05);
+  }
+  .produto img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: contain;
+    max-height: 100px;
+    margin-bottom: 12px;
+  }
+  .produto h4 {
+    margin: 0 0 6px 0;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .produto p {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+  }
+
+  /* Botões de + e - */
+  .botoes {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    align-items: center;
+  }
+  .botoes button {
+    background-color: #2e7d32;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .botoes span.quantidade {
+    font-size: 18px;
+    min-width: 24px;
+    text-align: center;
+  }
+
+  /* Carrinho fixo no canto inferior direito */
+  #carrinho-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #2e7d32;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 0.2);
+    z-index: 100;
+  }
+
+  /* Modal do carrinho */
+  #carrinho-modal {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    width: 320px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.2);
+    padding: 20px;
+    display: none;
+    z-index: 101;
+  }
+  #carrinho-modal h2 {
+    margin: 0 0 12px 0;
+    font-weight: 700;
+  }
+  #lista-carrinho {
+    list-style: none;
+    padding-left: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    margin: 0 0 12px 0;
+  }
+  #lista-carrinho li {
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  #finalizar, #fechar {
+    width: 100%;
+    border-radius: 8px;
+    padding: 12px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  #finalizar {
+    background-color: #2e7d32;
+    color: white;
+    font-weight: 700;
+  }
+  #finalizar:disabled {
+    background-color: #9ccc9c;
+    cursor: not-allowed;
+  }
+  #fechar {
+    background-color: #ccc;
+    color: #333;
+    margin-top: 10px;
+  }
