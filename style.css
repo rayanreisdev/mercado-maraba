@@ -225,3 +225,50 @@
     color: #333;
     margin-top: 10px;
   }
+
+
+  nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    nav a {
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffda44;
+    }
+
+    #searchInput {
+      padding: 8px 12px;
+      border-radius: 20px;
+      border-style: 3px black;
+      outline: none;
+      width: 100px;
+      transition: width 0.3s ease;
+      font-size: 14px;
+    }
+
+    #searchInput:focus {
+      width: 100px;
+      box-shadow: 0 0 8px rgba(255, 218, 68, 0.7);
+    }
+
+    .search-icon {
+      width: 24px;
+      height: 24px;
+      stroke: rgb(0, 0, 0);
+      cursor: pointer;
+      transition: stroke 0.3s ease;
+    }
+
+    .op {
+      color: #000000;
+    }

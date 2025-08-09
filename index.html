@@ -7,7 +7,41 @@
   <link rel="stylesheet" href="style.css">
   <title>Comercial Maraba</title>
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
+    #resultado {
+      width: 150px;
+      background: white;
+      padding: 0;
+      margin-top: -20px;
+      margin-left: 217px;
+      border-radius: 20px;
+      list-style: none;
+      font-size: 14px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+    }
+
+    #resultado li a {
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+      display: block;
+      text-align: center;
+    }
+
+    #resultado li {
+      text-decoration: none;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    #resultado li:hover {
+      background-color: #f0f0f0;
+    }
   </style>
 </head>
 
@@ -19,13 +53,19 @@
       <nav>
         <a href="#">Inicio</a>
         <a href="#" onclick="abrirWhatsApp('5594984046320')">Contato</a>
+        <input type="text" id="searchInput" placeholder="Pesquisar..." />
         <svg class="search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"></circle>
+          xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="pesqui" onclick="buscar()"
+          style="cursor:pointer;">
+          <circle cx="11" cy="11" r="7" class="op"></circle>
           <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
         </svg>
       </nav>
+
+
     </header>
+
+    <ul id="resultado"></ul>
 
     <div class="banner">
       <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=800&q=80"
@@ -39,7 +79,7 @@
     <section class="featured">
       <h3>Ortifruts</h3>
       <div class="produtos">
-        <div class="produto" data-nome="Maçã">
+        <div class="produto" data-nome="Maçã" id="produto-maca">
           <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
             alt="Apples" />
           <h4>Maçã</h4>
@@ -51,7 +91,7 @@
           </div>
         </div>
 
-        <div class="produto" data-nome="Banana">
+        <div class="produto" data-nome="Banana" id="produto-banana">
           <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
             alt="Bananas" />
           <h4>Banana</h4>
@@ -63,7 +103,7 @@
           </div>
         </div>
 
-        <div class="produto" data-nome="melancia">
+        <div class="produto" data-nome="melancia" id="produto-melancia">
           <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
             alt="Large Eggs" />
           <h4>melancia</h4>
@@ -75,7 +115,7 @@
           </div>
         </div>
 
-        <div class="produto" data-nome="Leite">
+        <div class="produto" data-nome="Leite" id="produto-leite">
           <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
             alt="Milk" />
           <h4>Leite</h4>
@@ -88,13 +128,9 @@
         </div>
       </div>
 
-
-
-
-
       <h3>Mercearia</h3>
       <div class="produtos">
-        <div class="produto" data-nome="Arroz">
+        <div class="produto" data-nome="Arroz" id="produto-arroz">
           <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
             alt="Apples" />
           <h4>Arroz</h4>
@@ -106,7 +142,7 @@
           </div>
         </div>
 
-        <div class="produto" data-nome="Feijao">
+        <div class="produto" data-nome="Feijao" id="produto-feijao">
           <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
             alt="Bananas" />
           <h4>Feijao</h4>
@@ -118,7 +154,7 @@
           </div>
         </div>
 
-        <div class="produto" data-nome="macarrao">
+        <div class="produto" data-nome="macarrao" id="produto-macarrao">
           <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
             alt="Large Eggs" />
           <h4>macarrao</h4>
@@ -130,7 +166,7 @@
           </div>
         </div>
 
-        <div class="produto" data-nome="açucar">
+        <div class="produto" data-nome="açucar" id="produto-acucar">
           <img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?auto=format&fit=crop&w=200&q=80"
             alt="Milk" />
           <h4>açucar</h4>
@@ -144,7 +180,6 @@
       </div>
     </section>
   </div>
-  
 
   <!-- Botão e modal do carrinho -->
   <div id="carrinho-btn"><span id="contador">0</span></div>
@@ -156,9 +191,7 @@
   </div>
 
   <script>
-    // Aqui você pode colar o seu código JS do carrinho exatamente igual do que você mandou,
-    // só precisa ajustar para funcionar com essa estrutura nova.
-
+    // Código do carrinho sem alterações, ficou tudo igual.
     document.addEventListener('DOMContentLoaded', function () {
       const produtos = document.querySelectorAll('.produto');
       const carrinhoBtn = document.getElementById('carrinho-btn');
@@ -254,13 +287,59 @@
     });
   </script>
 
-
-<script>
-  function abrirWhatsApp(numero) {
+  <script>
+    function abrirWhatsApp(numero) {
       const url = `https://wa.me/${numero}`;
       window.open(url, '_blank');
     }
-</script>
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+  <script>
+    // Produtos para busca com IDs exatos dos produtos no HTML
+    const produtos = [
+      { nome: "açucar", id: "produto-acucar" },
+      { nome: "Banana", id: "produto-banana" },
+      { nome: "Maçã", id: "produto-maca" },
+      { nome: "melancia", id: "produto-melancia" },
+      { nome: "Leite", id: "produto-leite" },
+      { nome: "Arroz", id: "produto-arroz" },
+      { nome: "Feijao", id: "produto-feijao" },
+      { nome: "macarrao", id: "produto-macarrao" }
+    ];
+
+    const options = {
+      keys: ['nome'],
+      threshold: 0.3,
+    };
+    const fuse = new Fuse(produtos, options);
+
+    function buscar() {
+      const input = document.getElementById('searchInput').value.trim();
+      const resultados = fuse.search(input);
+      const ul = document.getElementById('resultado');
+      ul.innerHTML = '';
+
+      if (input === '') {
+        ul.innerHTML = '';
+        return;
+      }
+
+      if (resultados.length === 0) {
+        ul.innerHTML = '<li>Nenhum produto encontrado</li>';
+        return;
+      }
+
+      resultados.forEach(result => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.textContent = result.item.nome;
+        a.href = `#${result.item.id}`;
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+    }
+  </script>
 </body>
 
 </html>
